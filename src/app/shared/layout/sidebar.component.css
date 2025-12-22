@@ -1,0 +1,24 @@
+/* sidebar helpers */
+.main-sidebar {
+  width: 250px;
+  /* participate in flow; layout positions header above */
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  transition: width 220ms ease, transform 220ms ease, opacity 220ms ease;
+}
+
+/* nav styles tweaks */
+.nav-sidebar .nav-item > .nav-link { display:flex; align-items:center; }
+.nav-sidebar .nav-treeview { padding-left: 1rem; }
+.nav-icon { width: 1.25rem; }
+
+/* When sidebar is hidden (body:not(.sidebar-open) on desktop), collapse labels */
+@media (min-width: 992px) {
+  body:not(.sidebar-open) .main-sidebar { width: 0; overflow: hidden; }
+  body:not(.sidebar-open) .nav-sidebar .nav-link p { display: none; }
+  body:not(.sidebar-open) .nav-icon { margin-right: 0; }
+}
+
+/* ensure icons centered in collapsed state */
+.body-sidebar-collapsed .nav-link { justify-content: center; }

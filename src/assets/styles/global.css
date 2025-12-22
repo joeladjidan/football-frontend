@@ -1,0 +1,30 @@
+@import './_variables.css';
+
+body {
+  font-family: Calibri, Helvetica, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  margin: 0;
+  padding: 0.5rem;
+}
+
+/* Smooth theme transition */
+:root, body, .card, .main-header, .main-sidebar, .content-wrapper {
+  transition: background-color 250ms ease, color 250ms ease, border-color 200ms ease;
+}
+
+/* Theme button small layout */
+.theme-icon { margin-right: 0.4rem; }
+.theme-label { font-weight:600; }
+
+.btn { padding: 0.5rem 0.8rem; border-radius: var(--border-radius); border: none; cursor: pointer; }
+.btn-primary { background-color: var(--color-primary); color: white; }
+.btn-secondary { background-color: var(--color-secondary); color: white; }
+
+.card { background: var(--card-bg); padding: 1rem; border-radius: var(--border-radius); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+
+.modal { position: fixed; top: 0; left: 0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; }
+.modal-backdrop { position:absolute; inset:0; background: var(--modal-backdrop); }
+.modal-content { position:relative; background:var(--card-bg); padding:1rem; border-radius:var(--border-radius); z-index:2; max-width:600px; width:90%; }
+
+.loader { padding:0.5rem; text-align:center; }

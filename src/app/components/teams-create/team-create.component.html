@@ -1,0 +1,73 @@
+<!-- AdminLTE-like card layout for team create -->
+<div class="card card-primary">
+  <div class="card-header">
+    <h3 class="card-title"><i class="fa fa-futbol-o me-2"></i> Créer une équipe</h3>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="card-body" novalidate>
+    <div class="form-group mb-3">
+      <label for="name">Nom</label>
+      <div class="input-group">
+        <span class="input-group-text"><i class="fa fa-font"></i></span>
+        <input id="name" type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': getControl('name')?.invalid && (getControl('name')?.touched || getControl('name')?.dirty)}" [attr.autofocus]="getControl('name')?.invalid ? true : null" />
+        <span class="input-group-text text-danger" *ngIf="getControl('name')?.invalid && (getControl('name')?.touched || getControl('name')?.dirty)"><i class="fa fa-exclamation-circle"></i></span>
+      </div>
+      <div *ngIf="getControl('name')?.errors" class="invalid-feedback d-block">
+        <div *ngIf="getControl('name')?.errors?.required">Le nom est requis.</div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="acronym">Acronyme</label>
+      <div class="input-group">
+        <span class="input-group-text"><i class="fa fa-font"></i></span>
+        <input id="acronym" type="text" class="form-control" formControlName="acronym" [ngClass]="{'is-invalid': getControl('acronym')?.invalid && (getControl('acronym')?.touched || getControl('acronym')?.dirty)}" />
+        <span class="input-group-text text-danger" *ngIf="getControl('acronym')?.invalid && (getControl('acronym')?.touched || getControl('acronym')?.dirty)"><i class="fa fa-exclamation-circle"></i></span>
+      </div>
+      <div *ngIf="getControl('acronym')?.errors" class="invalid-feedback d-block">
+        <div *ngIf="getControl('acronym')?.errors?.required">L'acronyme est requis.</div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="budget">Budget</label>
+      <div class="input-group">
+        <span class="input-group-text">€</span>
+        <input id="budget" type="number" class="form-control" formControlName="budget" [ngClass]="{'is-invalid': getControl('budget')?.invalid && (getControl('budget')?.touched || getControl('budget')?.dirty)}" />
+        <span class="input-group-text text-danger" *ngIf="getControl('budget')?.invalid && (getControl('budget')?.touched || getControl('budget')?.dirty)"><i class="fa fa-exclamation-circle"></i></span>
+      </div>
+      <div *ngIf="getControl('budget')?.errors" class="invalid-feedback d-block">
+        <div *ngIf="getControl('budget')?.errors?.required">Le budget est requis.</div>
+        <div *ngIf="getControl('budget')?.errors?.min">Le budget doit être &gt;= 0.</div>
+      </div>
+    </div>
+
+    <div class="form-group mt-3">
+      <label>Joueurs</label>
+      <div formArrayName="players">
+        <div *ngFor="let _p of players.controls; let i = index" [formGroupName]="i" class="d-flex gap-2 align-items-start mb-2">
+          <div class="input-group flex-grow-1">
+            <span class="input-group-text"><i class="fa fa-user"></i></span>
+            <input type="text" class="form-control" placeholder="Nom" formControlName="name" [ngClass]="{'is-invalid': _p.get('name')?.invalid && (_p.get('name')?.touched || _p.get('name')?.dirty)}" />
+          </div>
+          <div class="input-group flex-grow-1" style="width:180px;">
+            <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
+            <select class="form-select" formControlName="position" [ngClass]="{'is-invalid': _p.get('position')?.invalid && (_p.get('position')?.touched || _p.get('position')?.dirty)}">
+              <option value="">Position</option>
+              <option *ngFor="let pos of positions" [value]="pos">{{ pos }}</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-danger" title="Supprimer" (click)="removePlayer(i)"><i class="fa fa-trash"></i></button>
+        </div>
+      </div>
+      <button type="button" class="btn btn-secondary mt-2" (click)="addPlayer()"><i class="fa fa-plus"></i> Ajouter un joueur</button>
+    </div>
+
+    <div class="card-footer d-flex justify-content-end gap-2">
+      <app-button [disabled]="isSubmitting" (click)="cancel()" type="button" variant="secondary">Annuler</app-button>
+      <app-button [disabled]="isSubmitting" type="submit" [loading]="isSubmitting" variant="primary">
+        <ng-container *ngIf="isSubmitting"><app-loader></app-loader> En cours...</ng-container>
+        <ng-container *ngIf="!isSubmitting">Créer</ng-container>
+      </app-button>
+    </div>
+  </form>
+</div>

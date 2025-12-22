@@ -1,0 +1,70 @@
+@import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+
+/* existing styles */
+body { font-family: Calibri, sans-serif; margin: 2rem; }
+.card { border: 1px solid #ffffff; padding: 1rem; margin-bottom: 1rem; }
+
+/* AdminLTE-like layout helpers */
+.main-header.fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  height: 56px;
+}
+
+/* Sidebar width on desktop */
+.main-sidebar {
+  width: 250px;
+  position: fixed;
+  top: 56px; /* under header */
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+}
+
+/* Ensure content has left margin on desktop to avoid being under the sidebar */
+.content-wrapper {
+  transition: margin-left .2s ease;
+}
+
+/* On small screens, hide the sidebar and remove left margin */
+@media (max-width: 991.98px) {
+  .main-sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    z-index: 1040;
+  }
+
+  .content-wrapper {
+    margin-left: 0 !important;
+  }
+
+  /* When pushmenu toggles, AdminLTE would add .sidebar-open on body — support it */
+  body.sidebar-open .main-sidebar {
+    transform: translateX(0);
+  }
+}
+
+/* Ensure router outlets and top spacing */
+.router-outlet, app-root, .content {
+  display: block;
+  padding: 1rem;
+}
+
+/* Pagination responsive: wrap buttons on small screens */
+@media (max-width: 576px) {
+  .card-footer .btn-group { display: flex; flex-wrap: wrap; }
+  .card-footer .btn-group .btn { margin-bottom: 4px; }
+  .card-footer .d-flex.align-items-center { flex-direction: column; gap: .5rem; }
+}
+
+/* Small visual tweaks for AdminLTE-like table */
+.table-hover tbody tr:hover { background-color: rgba(0,0,0,0.03); }
+.table th, .table td { vertical-align: middle; }
+
+/* Ensure actions icons have spacing */
+.btn .fa-pen, .btn .fa-trash { pointer-events: none; }
+
+body.no-scroll { overflow: hidden !important; }

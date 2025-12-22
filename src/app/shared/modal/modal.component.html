@@ -1,0 +1,11 @@
+<div class="modal" *ngIf="visible">
+  <div class="modal-backdrop" (click)="backdropClick($event)"></div>
+  <div class="modal-content" #dialog role="dialog" aria-modal="true" [attr.aria-labelledby]="title ? 'modal-title' : null">
+    <header class="modal-header"><h3 id="modal-title">{{title}}</h3></header>
+    <section class="modal-body"><ng-content></ng-content></section>
+    <footer class="modal-footer">
+      <app-button *ngIf="showCancel" (click)="close()">{{cancelLabel}}</app-button>
+      <app-button id="confirmBtn" #confirmButton class="btn-primary" (click)="onConfirmClick()">{{confirmLabel}}</app-button>
+    </footer>
+  </div>
+</div>

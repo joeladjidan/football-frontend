@@ -1,0 +1,8 @@
+<div class="toast-wrapper">
+  <div *ngFor="let m of messages" class="toast toast-{{m.type}}" [class.exiting]="m.exiting" [style.animation]="m.exiting ? 'toastOut 300ms ease' : 'toastIn 320ms ease'">
+    <span class="icon">{{ iconFor(m.type) }}</span>
+    <div class="text">{{m.text}}</div>
+    <app-button *ngIf="m.actionLabel" class="action" (click)="onAction(m)">{{m.actionLabel}}</app-button>
+  </div>
+</div>
+

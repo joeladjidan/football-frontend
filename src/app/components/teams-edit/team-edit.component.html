@@ -1,0 +1,95 @@
+<div class="edit-overlay" (click)="navigateBack()" aria-hidden="true"></div>
+
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Editer équipe</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Détails de l'équipe</h3>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="save()">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="name">Nom</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-flag"></i></span></div>
+                <input id="name" class="form-control" formControlName="name" placeholder="Nom de l'équipe"
+                       [class.is-invalid]="form.get('name')?.invalid && (form.get('name')?.touched || form.get('name')?.dirty)" />
+              </div>
+              <div *ngIf="form.get('name')?.invalid && (form.get('name')?.touched || form.get('name')?.dirty)" class="invalid-feedback d-block">
+                <div *ngIf="form.get('name')?.errors?.['required']">Le nom est requis.</div>
+                <div *ngIf="form.get('name')?.errors?.['minlength']">Le nom est trop court.</div>
+                <div *ngIf="form.get('name')?.errors?.['backend']" class="text-danger">{{ form.get('name')?.errors?.['backend'] }}</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="acronym">Acronyme</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-tag"></i></span></div>
+                <input id="acronym" class="form-control" formControlName="acronym" placeholder="Ex: OGC"
+                       [class.is-invalid]="form.get('acronym')?.invalid && (form.get('acronym')?.touched || form.get('acronym')?.dirty)" />
+              </div>
+              <div *ngIf="form.get('acronym')?.invalid && (form.get('acronym')?.touched || form.get('acronym')?.dirty)" class="invalid-feedback d-block">
+                <div *ngIf="form.get('acronym')?.errors?.['required']">L'acronyme est requis.</div>
+                <div *ngIf="form.get('acronym')?.errors?.['maxlength']">L'acronyme est trop long.</div>
+                <div *ngIf="form.get('acronym')?.errors?.['backend']" class="text-danger">{{ form.get('acronym')?.errors?.['backend'] }}</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="budget">Budget</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text">€</span></div>
+                <input id="budget" type="number" class="form-control" formControlName="budget" placeholder="Budget en EUR"
+                       [class.is-invalid]="form.get('budget')?.invalid && (form.get('budget')?.touched || form.get('budget')?.dirty)" />
+              </div>
+              <div *ngIf="form.get('budget')?.invalid && (form.get('budget')?.touched || form.get('budget')?.dirty)" class="invalid-feedback d-block">
+                <div *ngIf="form.get('budget')?.errors?.['min']">Le budget doit être supérieur ou égal à 0.</div>
+                <div *ngIf="form.get('budget')?.errors?.['required']">Le budget est requis.</div>
+                <div *ngIf="form.get('budget')?.errors?.['backend']" class="text-danger">{{ form.get('budget')?.errors?.['backend'] }}</div>
+              </div>
+            </div>
+
+            <!-- Players FormArray -->
+            <div class="form-group">
+              <label>Joueurs</label>
+              <div formArrayName="players">
+                <div *ngFor="let p of players.controls; let i = index" [formGroupName]="i" class="d-flex gap-2 align-items-start mb-2">
+                  <div class="input-group flex-grow-1">
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    <input type="text" class="form-control" placeholder="Nom" formControlName="name"
+                           [class.is-invalid]="p.get('name')?.invalid && (p.get('name')?.touched || p.get('name')?.dirty)" />
+                  </div>
+                  <div class="input-group" style="width:180px;">
+                    <select class="form-select" formControlName="position">
+                      <option value="">Position</option>
+                      <option *ngFor="let pos of positions" [value]="pos">{{ pos }}</option>
+                    </select>
+                  </div>
+                  <button type="button" class="btn btn-danger" title="Supprimer" (click)="removePlayer(i)"><i class="fa fa-trash"></i></button>
+                </div>
+              </div>
+              <button type="button" class="btn btn-secondary mt-2" (click)="addPlayer()"><i class="fa fa-plus"></i> Ajouter un joueur</button>
+            </div>
+
+          </div>
+
+          <div class="card-footer d-flex align-items-center">
+            <app-button type="submit" [disabled]="form.invalid" class="btn btn-primary">Enregistrer</app-button>
+            <app-button type="button" class="btn btn-default ml-2" (click)="navigateBack()">Annuler</app-button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>

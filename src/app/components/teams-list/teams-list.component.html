@@ -1,0 +1,123 @@
+<div class="users-list container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Équipes</h2>
+        <a routerLink="/teams/new" class="btn btn-primary">Créer une équipe</a>
+    </div>
+
+    <!-- Centered search -->
+    <div class="mb-3 d-flex justify-content-center">
+        <div class="input-group" style="max-width:420px;">
+            <input class="form-control" [(ngModel)]="query" (keyup.enter)="onSearch()" placeholder="Rechercher par nom" />
+            <button class="btn btn-outline-primary" (click)="onSearch()">Rechercher</button>
+        </div>
+    </div>
+
+    <app-loader *ngIf="(loading$ | async)"></app-loader>
+
+    <!-- AdminLTE card table -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Liste des équipes</h3>
+            <div class="card-tools">
+                <span class="badge bg-info">{{ totalPages }} page(s)</span>
+            </div>
+        </div>
+        <div class="card-body table-responsive p-0">
+            <table *ngIf="!(loading$ | async)" class="table table-hover text-nowrap">
+                <thead>
+                <tr>
+                    <th style="width:60px">Id</th>
+                    <th>
+                        <button class="btn btn-link p-0 text-start" (click)="setSort('name')" aria-label="Trier par nom">
+                            Nom
+                            <span *ngIf="sortField==='name'">{{ sortDir==='asc' ? ' ▲' : ' ▼' }}</span>
+                        </button>
+                    </th>
+                    <th class="d-none d-md-table-cell">
+                        <button class="btn btn-link p-0" (click)="setSort('acronym')" aria-label="Trier par acronyme">
+                            Acronyme
+                            <span *ngIf="sortField==='acronym'">{{ sortDir==='asc' ? ' ▲' : ' ▼' }}</span>
+                        </button>
+                    </th>
+                    <th>
+                        <button class="btn btn-link p-0" (click)="setSort('budget')" aria-label="Trier par budget">
+                            Budget
+                            <span *ngIf="sortField==='budget'">{{ sortDir==='asc' ? ' ▲' : ' ▼' }}</span>
+                        </button>
+                    </th>
+                    <th class="d-none d-sm-table-cell">Joueurs</th>
+                    <th style="width:140px" class="text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let t of (teams$ | async)">
+                    <td>{{ t.id }}</td>
+                    <td class="text-truncate" style="max-width:200px">{{ t.name }}</td>
+                    <td class="d-none d-md-table-cell">{{ t.acronym }}</td>
+                    <td>{{ t.budget | number }}</td>
+                    <td class="d-none d-sm-table-cell">{{ t.players?.length || 0 }}</td>
+                    <td class="text-center">
+                        <a
+                                [routerLink]="['/teams', t.id]"
+                                class="btn btn-sm btn-outline-primary me-1 action-btn"
+                                title="Éditer"
+                                aria-label="Éditer {{t.name}}"
+                        >
+                            <!-- icône crayon (SVG inline) -->
+                            <svg class="action-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false">
+                                <path d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708l-9.193 9.193a.5.5 0 0 1-.168.11l-4 1.5a.5.5 0 0 1-.65-.65l1.5-4a.5.5 0 0 1 .11-.168L12.146.854zM11.207 2L3 10.207V13h2.793L14 4.793 11.207 2z"/>
+                            </svg>
+                            <span class="visually-hidden">Éditer {{t.name}}</span>
+                        </a>
+
+                        <button
+                                class="btn btn-sm btn-outline-danger action-btn"
+                                (click)="askDelete(t)"
+                                title="Supprimer"
+                                aria-label="Supprimer {{t.name}}"
+                        >
+                            <!-- icône poubelle (SVG inline) -->
+                            <svg class="action-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false">
+                                <path d="M5.5 5.5a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0v-6a.5.5 0 0 1 .5-.5zm2.5.5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0v-6zm3 0a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0v-6z"/>
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 1 1 0-2h3.11a1 1 0 0 1 .9-.553h2a1 1 0 0 1 .9.553H14.5a1 1 0 0 1 1 1zM4.118 4 4 4.06V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.06L11.882 4H4.118zM2.5 3a.5.5 0 0 0-.5.5V4h12v-.5a.5.5 0 0 0-.5-.5h-11z"/>
+                            </svg>
+                            <span class="visually-hidden">Supprimer {{t.name}}</span>
+                        </button>
+                    </td>
+                </tr>
+                <tr *ngIf="!(loading$ | async) && (teams$ | async)?.length === 0">
+                    <td colspan="6" class="text-center text-muted">Aucune équipe</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer clearfix">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <label class="me-2">Page size:
+                        <select [(ngModel)]="size" (change)="onSizeChange()" class="form-select form-select-sm d-inline-block" style="width:auto">
+                            <option *ngFor="let s of pageSizes" [value]="s">{{s}}</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-sm btn-secondary" (click)="prevPage()" [disabled]="page==0">Préc</button>
+                    <div class="btn-group">
+                        <button *ngFor="let p of pageButtons" class="btn btn-sm" [class.btn-primary]="p===page" (click)="page=p; load()">{{p+1}}</button>
+                    </div>
+                    <button class="btn btn-sm btn-secondary" (click)="nextPage()" [disabled]="page+1 >= (totalPages || 1)">Suiv</button>
+
+                    <div class="d-flex align-items-center ms-3">
+                        <input type="number" class="form-control form-control-sm" style="width:80px" [(ngModel)]="jumpPage" placeholder="Page" />
+                        <button class="btn btn-sm btn-outline-primary ms-1" (click)="jumpToPage()">Aller</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-modal #delModal [(visible)]="modalVisible" title="Confirmer la suppression" [confirmLabel]="'Confirmer'" [cancelLabel]="'Annuler'">
+      <p>Voulez-vous vraiment supprimer l'équipe <strong>{{selectedTeamsToDelete?.name}}</strong> ?</p>
+    </app-modal>
+</div>

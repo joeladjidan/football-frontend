@@ -1,0 +1,8 @@
+
+.action-btn { display: inline-flex; align-items: center; gap: 0.35rem; }
+.action-icon { width: 1em; text-align: center; }
+
+/* Optionnel : augmenter cible tactile sur mobile */
+@media (max-width: 576px) {
+  .action-btn { padding: 0.35rem 0.5rem; }
+}

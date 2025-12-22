@@ -1,0 +1,15 @@
+<div>
+  <!-- Toast global -->
+  <app-toast></app-toast>
+
+  <ng-container *ngIf="auth.isLoggedIn(); else publicContent">
+    <!-- Affiche le layout AdminLTE uniquement si l'utilisateur est connecté -->
+    <app-layout>
+      <router-outlet></router-outlet>
+    </app-layout>
+  </ng-container>
+
+  <ng-template #publicContent>
+    <router-outlet></router-outlet>
+  </ng-template>
+</div>

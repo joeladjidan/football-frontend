@@ -1,0 +1,44 @@
+/* Variables CSS simples */
+:root {
+  /* Default (OGC Nice) theme */
+  --ogc-red: #E30613; /* couleur principale OGC Nice */
+  --ogc-black: #000000; /* couleur secondaire */
+
+  /* Global primary/secondary adapted to OGC Nice */
+  --color-primary: var(--ogc-red);
+  --color-secondary: var(--ogc-black);
+
+  --color-bg: #ffffff;
+  --color-text: #212529;
+  --border-radius: 4px;
+  --card-bg: #ffffff;
+  --modal-backdrop: rgba(0,0,0,0.5);
+
+  --ogc-gradient: linear-gradient(180deg, var(--ogc-red), #000000 80%);
+}
+
+/* Classic theme override (restores original blue/gray look) */
+:root[data-theme='classic'] {
+  --color-primary: #0d6efd;
+  --color-secondary: #6c757d;
+  --color-bg: #ffffff;
+  --color-text: #212529;
+  --card-bg: #ffffff;
+  --ogc-gradient: linear-gradient(180deg, rgba(61,130,232,0.06), transparent 40%);
+}
+
+/* Thème sombre : appliquer soit sur :root[data-theme="dark"] soit en ajoutant la classe .theme-dark sur <html> ou <body> */
+:root[data-theme='dark'], .theme-dark {
+  --color-primary: var(--ogc-red);
+  --color-secondary: var(--ogc-black);
+  --color-bg: #0b1220;
+  --color-text: #e6eef8;
+  --border-radius: 4px;
+  --card-bg: #0f1724;
+  --modal-backdrop: rgba(0,0,0,0.65);
+
+  /* OGC Nice dark variants */
+  --ogc-red: #E30613;
+  --ogc-black: #000000;
+  --ogc-gradient: linear-gradient(180deg, var(--ogc-red), var(--ogc-black) 80%);
+}

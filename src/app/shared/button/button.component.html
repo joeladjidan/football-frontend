@@ -1,0 +1,4 @@
+<button [attr.type]="type" class="btn" [ngClass]="{'btn-primary': variant === 'primary', 'btn-secondary': variant === 'secondary', 'disabled': disabled || loading}" [disabled]="disabled || loading" [attr.aria-disabled]="disabled || loading" [attr.aria-busy]="loading">
+  <ng-container *ngIf="!loading"><ng-content></ng-content></ng-container>
+  <ng-container *ngIf="loading"><app-loader></app-loader></ng-container>
+</button>

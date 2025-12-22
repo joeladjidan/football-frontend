@@ -1,0 +1,7 @@
+.btn { padding: 0.5rem 0.8rem; border-radius: var(--border-radius); border: none; cursor: pointer; transition: opacity 120ms ease, transform 80ms ease; }
+.btn-primary { background: var(--color-primary); color: #fff }
+.btn-secondary { background: var(--color-secondary); color: #fff }
+
+.btn.disabled, button[disabled] { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.btn:active { transform: translateY(1px); }

@@ -1,0 +1,15 @@
+<div class="container">
+  <h2>Editer utilisateur</h2>
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="mb-2">
+      <label>Username</label>
+      <input class="form-control" formControlName="username" />
+    </div>
+    <div class="mb-2">
+      <label>Roles (comma separated)</label>
+      <input class="form-control" formControlName="roles" />
+    </div>
+    <button class="btn btn-primary" type="submit">Enregistrer</button>
+  </form>
+</div>
+

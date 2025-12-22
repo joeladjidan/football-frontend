@@ -1,0 +1,13 @@
+/* minimal header styling to play nice with AdminLTE */
+.main-header { z-index: 1030; height: 56px; display:flex; align-items:center; padding:0 .75rem; background: var(--card-bg); border-bottom: 1px solid rgba(0,0,0,0.06); }
+.navbar .nav-link { cursor: pointer; }
+
+/* minimal brand for compact header */
+.minimal-brand { font-weight:700; color: var(--color-primary); margin-right: 0.75rem; }
+
+/* compact header when minimal */
+.minimal-header { height: 48px; padding: 0 .5rem; }
+
+/* reduce elements inside minimal header */
+.minimal-header .navbar-nav .nav-item { display: none; }
+.minimal-header .minimal-brand { display: inline-block; }

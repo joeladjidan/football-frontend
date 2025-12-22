@@ -1,0 +1,6 @@
+.modal { position: fixed; top: 0; left: 0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; z-index: 2000; pointer-events: auto; }
+.modal-backdrop { position:absolute; inset:0; background: var(--modal-backdrop, rgba(0,0,0,0.45)); z-index: 2000; }
+.modal-content { position:relative; background:var(--card-bg, #fff); padding:1rem; border-radius:var(--border-radius,6px); z-index:2001; max-width:600px; width:90%; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+.modal-header h3 { margin:0 }
+.modal-footer { text-align:right }
+.modal-footer button { padding:0.4rem 0.6rem }

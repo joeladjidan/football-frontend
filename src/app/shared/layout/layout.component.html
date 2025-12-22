@@ -1,0 +1,15 @@
+<div class="wrapper" [ngClass]="{'layout-minimal': isMinimal}">
+  <app-header [minimal]="isMinimal"></app-header>
+
+  <div class="main-area">
+    <app-sidebar *ngIf="!isMinimal" class="main-sidebar"></app-sidebar>
+
+    <div class="content-wrapper">
+      <main>
+        <ng-content></ng-content>
+      </main>
+    </div>
+  </div>
+
+  <app-footer *ngIf="!isMinimal"></app-footer>
+</div>

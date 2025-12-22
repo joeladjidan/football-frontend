@@ -1,0 +1,34 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <a class="brand-link" routerLink="/">
+    <span class="brand-text font-weight-light">Football Team</span>
+  </a>
+  <div class="sidebar">
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" role="menu">
+          <li class="nav-item has-treeview" [class.menu-open]="isSectionOpen('gestion')">
+              <a href="#" class="nav-link">
+                  <i class="fas fa-cogs nav-icon"></i>
+                  <p>
+                      Gestion
+                      <i class="right fas fa-angle-left"></i>
+                  </p>
+              </a>
+              <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                      <a routerLink="/teams" class="nav-link" [class.active]="isActiveRoute('/teams')">
+                          <i class="fas fa-futbol nav-icon"></i>
+                          <p>Équipes</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a routerLink="/users" class="nav-link" [class.active]="isActiveRoute('/users')">
+                          <i class="fas fa-users nav-icon"></i>
+                          <p>Utilisateurs</p>
+                      </a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+    </nav>
+  </div>
+</aside>

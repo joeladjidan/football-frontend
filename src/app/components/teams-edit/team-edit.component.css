@@ -1,0 +1,19 @@
+/* Styles pour le formulaire d'édition d'équipe — aligné sur users-edit (flux normal) */
+:host { position: static; display: block; overflow: visible; padding: 1rem; }
+
+.content-wrapper { max-width: 960px; margin: 0 auto; padding: 1rem; }
+
+.card.card-primary { max-width: 100%; margin: 0; width: 100%; }
+.card-body { padding: 1rem 1.25rem; }
+.card-footer { display: flex; gap: 0.5rem; justify-content: flex-end; padding: 0.75rem 1.25rem; }
+
+/* Inputs */
+.input-group .form-control { min-height: 44px; }
+.is-invalid { border-color: #dc3545 !important; box-shadow: none; }
+.invalid-feedback { color: #dc3545; }
+
+@media (max-width: 767px) {
+  .content-wrapper { padding: 0.5rem; }
+  .card-footer { flex-direction: column-reverse; align-items: stretch; }
+  .card-footer app-button { width: 100%; }
+}
