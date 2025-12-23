@@ -1,19 +1,25 @@
-/* Styles pour le formulaire d'édition d'équipe — aligné sur users-edit (flux normal) */
-:host { position: static; display: block; overflow: visible; padding: 1rem; }
-
-.content-wrapper { max-width: 960px; margin: 0 auto; padding: 1rem; }
-
-.card.card-primary { max-width: 100%; margin: 0; width: 100%; }
-.card-body { padding: 1rem 1.25rem; }
-.card-footer { display: flex; gap: 0.5rem; justify-content: flex-end; padding: 0.75rem 1.25rem; }
-
-/* Inputs */
-.input-group .form-control { min-height: 44px; }
-.is-invalid { border-color: #dc3545 !important; box-shadow: none; }
-.invalid-feedback { color: #dc3545; }
-
-@media (max-width: 767px) {
-  .content-wrapper { padding: 0.5rem; }
-  .card-footer { flex-direction: column-reverse; align-items: stretch; }
-  .card-footer app-button { width: 100%; }
+/* css */
+.toast-container {
+  position: fixed;
+  right: 16px;
+  top: 16px;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
+.toast {
+  min-width: 220px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.toast.info { background: #1976d2; }
+.toast.success { background: #388e3c; }
+.toast.error { background: #d32f2f; }
+.toast-actions { display:flex; gap:8px; align-items:center; }
+.toast .close { background: transparent; border: none; color: #fff; cursor: pointer; }
