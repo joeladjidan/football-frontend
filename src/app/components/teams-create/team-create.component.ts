@@ -1,12 +1,14 @@
+// typescript
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from '../../shared';
+import { ButtonComponent} from '../../shared';
 import { LoaderComponent } from '../../shared';
 import { TeamRequest } from '../../models/team.model';
 import { ToastService } from '../../shared';
 import { TeamsService } from '../../services/teams.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-team-create',
@@ -21,7 +23,7 @@ export class TeamCreateComponent {
   // possible positions for the combo (localized)
   positions = ['Gardien', 'Défenseur', 'Milieu', 'Attaquant'];
 
-  constructor(private svc: TeamsService, private router: Router, private fb: FormBuilder, private toast: ToastService) {
+  constructor(private svc: TeamsService, private router: Router, private fb: FormBuilder, private toast: ToastService, private toastr: ToastrService) {
     this.form = this.fb.group({
       name: ['', Validators.required],
       acronym: ['', Validators.required],
@@ -176,16 +178,18 @@ export class TeamCreateComponent {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.toast.showWithOptions({ text: 'Veuillez corriger les erreurs du formulaire', type: 'error', duration: 5000 });
+      // ancien appel incorrect à ngx-toastr supprimé
       return;
     }
     this.isSubmitting = true;
     const payload: TeamRequest = this.form.value;
     this.svc.create(payload).subscribe({
       next: () => {
-        this.toast.show('Équipe créée avec succès', 'success');
-        // navigate back to list and force a refresh
-        this.router.navigate(['/teams'], { queryParams: { r: Date.now() } });
+        // afficher le toaster avec options (assure compatibilité) et arrêter l'état de soumission
+        this.toast.showWithOptions({ text: 'Équipe créée avec succès', type: 'success', duration: 4000 });
         this.isSubmitting = false;
+        // petit délai pour laisser le toaster s'afficher avant navigation (évite destruction du container)
+        setTimeout(() => this.router.navigate(['/teams'], { queryParams: { r: Date.now() } }), 200);
       },
       error: (err: any) => {
         this.isSubmitting = false;

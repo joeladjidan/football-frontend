@@ -34,7 +34,6 @@ export class TeamEditComponent implements OnInit, OnDestroy {
     removePlayer(index: number) { this.players.removeAt(index); }
 
     ngOnInit() {
-        this.toast.showError("test "    );
         try { this.renderer.addClass(document.body, 'no-scroll'); } catch (e) {}
         const id = Number(this.route.snapshot.paramMap.get('id'));
         if (!id) { this.toast.showError('Equipe introuvable'); this.router.navigateByUrl('/teams'); return; }

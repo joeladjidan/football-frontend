@@ -28,3 +28,8 @@ body {
 .modal-content { position:relative; background:var(--card-bg); padding:1rem; border-radius:var(--border-radius); z-index:2; max-width:600px; width:90%; }
 
 .loader { padding:0.5rem; text-align:center; }
+
+/* When the body has this class, hide the page scrollbar (used on homepage) */
+body.no-scroll-home {
+  overflow: hidden;
+}

@@ -15,9 +15,14 @@
             "main": "src/main.ts",
             "polyfills": [],
             "tsConfig": "tsconfig.json",
-            "styles": [
-              "src/assets/styles/global.css"
-            ]
+              "assets": [
+                "src/favicon.ico",
+                "src/assets"
+              ],
+              "styles": [
+                "src/assets/styles/global.css",
+                "node_modules/ngx-toastr/toastr.css"
+              ]
           }
         },
         "serve": {

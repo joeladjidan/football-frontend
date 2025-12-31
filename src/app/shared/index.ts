@@ -1,5 +1,3 @@
-export * from './example/example.component';
-export { ExampleComponent } from './example/example.component';
 export * from './button/button.component';
 export * from './modal/modal.component';
 export * from './loader/loader.component';

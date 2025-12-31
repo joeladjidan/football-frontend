@@ -1,15 +1,36 @@
-<div class="container">
-  <h2>Editer utilisateur</h2>
-  <form [formGroup]="form" (ngSubmit)="save()">
-    <div class="mb-2">
-      <label>Username</label>
-      <input class="form-control" formControlName="username" />
+<div class="card card-primary">
+  <div class="card-header">
+    <h3 class="card-title"><i class="fa fa-user me-2"></i> Editer utilisateur</h3>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="save()" class="card-body" novalidate>
+    <div class="form-group mb-3">
+      <label for="username">Username</label>
+      <div class="input-group">
+        <span class="input-group-text"><i class="fa fa-user"></i></span>
+        <input id="username" type="text" class="form-control" formControlName="username" [ngClass]="{'is-invalid': getControl('username')?.invalid && (getControl('username')?.touched || getControl('username')?.dirty)}" />
+        <span class="input-group-text text-danger" *ngIf="getControl('username')?.invalid && (getControl('username')?.touched || getControl('username')?.dirty)"><i class="fa fa-exclamation-circle"></i></span>
+      </div>
+      <div *ngIf="getControl('username')?.errors" class="invalid-feedback d-block">
+        <div *ngIf="getControl('username')?.errors?.required">Le username est requis.</div>
+      </div>
     </div>
-    <div class="mb-2">
-      <label>Roles (comma separated)</label>
-      <input class="form-control" formControlName="roles" />
+
+    <div class="form-group mb-3">
+      <label for="roles">Roles (séparés par des virgules)</label>
+      <div class="input-group">
+        <span class="input-group-text"><i class="fa fa-users"></i></span>
+        <input id="roles" type="text" class="form-control" formControlName="roles" />
+      </div>
+      <div class="form-text">Ex: ADMIN,USER</div>
     </div>
-    <button class="btn btn-primary" type="submit">Enregistrer</button>
+
+    <div class="card-footer d-flex justify-content-end gap-2">
+      <app-button (click)="cancel()" type="button" variant="secondary">Annuler</app-button>
+      <app-button [disabled]="isSubmitting" type="submit" [loading]="isSubmitting" variant="primary">
+        <ng-container *ngIf="isSubmitting"><app-loader></app-loader> En cours...</ng-container>
+        <ng-container *ngIf="!isSubmitting">Enregistrer</ng-container>
+      </app-button>
+    </div>
   </form>
 </div>
 

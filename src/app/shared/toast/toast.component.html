@@ -1,8 +1,10 @@
-<div class="toast-wrapper">
-  <div *ngFor="let m of messages" class="toast toast-{{m.type}}" [class.exiting]="m.exiting" [style.animation]="m.exiting ? 'toastOut 300ms ease' : 'toastIn 320ms ease'">
-    <span class="icon">{{ iconFor(m.type) }}</span>
-    <div class="text">{{m.text}}</div>
-    <app-button *ngIf="m.actionLabel" class="action" (click)="onAction(m)">{{m.actionLabel}}</app-button>
-  </div>
+<!-- html -->
+<div class="toast-container" *ngIf="messages.length">
+    <div *ngFor="let m of messages" class="toast" [ngClass]="m.type">
+        <div class="toast-text">{{ m.text }}</div>
+        <div class="toast-actions">
+            <button *ngIf="m.action && m.actionLabel" (click)="action(m)">{{ m.actionLabel }}</button>
+            <button class="close" (click)="remove(m.id)">✕</button>
+        </div>
+    </div>
 </div>
-

@@ -33,14 +33,4 @@ export class AppComponent implements OnInit {
       // noop
     }
   }
-
-  toggleSidebar(event?: Event) {
-    if (event) { event.preventDefault(); }
-    const body = document.body;
-    if (body.classList.contains('sidebar-open')) {
-      body.classList.remove('sidebar-open');
-    } else {
-      body.classList.add('sidebar-open');
-    }
-  }
 }
