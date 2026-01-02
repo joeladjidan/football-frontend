@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="80" viewBox="0 0 240 80">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#e60012"/>
+      <stop offset="1" stop-color="#000000"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="80" rx="8" fill="url(#g)" />
+  <g transform="translate(12,12)">
+    <circle cx="28" cy="28" r="20" fill="#fff" />
+    <text x="28" y="34" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" fill="#e60012">OG</text>
+  </g>
+  <text x="72" y="46" font-family="Arial, sans-serif" font-size="32" fill="#ffffff">OGC Nice</text>
+</svg>

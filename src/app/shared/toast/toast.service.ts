@@ -62,40 +62,26 @@ export class ToastService {
     // Emit the message for the ToastComponent to handle
     this.subject.next(msg);
 
-    // Build options for ngx-toastr
-    const toastrOpts: any = {
-      timeOut: msg.duration,
-      closeButton: !!msg.action || true,
-      tapToDismiss: true,
-      enableHtml: false,
-      progressBar: false
-    };
+    // Display the toast using ngx-toastr
+    let toastRef: ActiveToast<any>;
+    switch (msg.type) {
+      case 'success':
+        toastRef = this.toastr.success(msg.text, undefined, { timeOut: msg.duration });
+        break;
+      case 'error':
+        toastRef = this.toastr.error(msg.text, undefined, { timeOut: msg.duration });
+        break;
+      case 'info':
+        toastRef = this.toastr.info(msg.text, undefined, { timeOut: msg.duration });
+        break;
+      case 'warning':
+        toastRef = this.toastr.warning(msg.text, undefined, { timeOut: msg.duration });
+        break;
+    }
 
-    let active: ActiveToast<any> | undefined;
-    try {
-      switch (msg.type) {
-        case 'success':
-          active = this.toastr.success(msg.text, undefined, toastrOpts);
-          break;
-        case 'error':
-          active = this.toastr.error(msg.text, undefined, toastrOpts);
-          break;
-        case 'warning':
-          active = this.toastr.warning(msg.text, undefined, toastrOpts);
-          break;
-        default:
-          active = this.toastr.info(msg.text, undefined, toastrOpts);
-      }
-
-      // Attach click event if an action is provided
-      if (msg.action && active && active.onTap) {
-        const sub = active.onTap.subscribe(() => {
-          try { msg.action && msg.action(); } catch (e) { /* noop */ }
-          sub.unsubscribe();
-        });
-      }
-    } catch (e) {
-      // Fallback to emitting via messages$ if ngx-toastr fails
+    // Attach action if provided
+    if (msg.action && msg.actionLabel) {
+      toastRef.onTap.subscribe(() => msg.action?.());
     }
 
     return msg;
