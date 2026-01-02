@@ -63,7 +63,7 @@ export class ToastService {
     this.subject.next(msg);
 
     // Display the toast using ngx-toastr
-    let toastRef: ActiveToast<any>;
+    let toastRef: ActiveToast<any> | undefined = undefined;
     switch (msg.type) {
       case 'success':
         toastRef = this.toastr.success(msg.text, undefined, { timeOut: msg.duration });
@@ -79,8 +79,8 @@ export class ToastService {
         break;
     }
 
-    // Attach action if provided
-    if (msg.action && msg.actionLabel) {
+    // Attach action if provided (guard against undefined toastRef)
+    if (msg.action && msg.actionLabel && toastRef) {
       toastRef.onTap.subscribe(() => msg.action?.());
     }
 
